@@ -1,9 +1,8 @@
 var jwt = require("jsonwebtoken");
 
 const verifyToken = async (req, res, next) => {
-
-   const bearerHeader = req.headers["authorization"] || req.headers["Authorization"]  ;
-    console.log("bearerHeader  :",bearerHeader);
+   const bearerHeader = req.headers["authorization"] || req.headers["Authorization"];
+   console.log("bearerHeader  :", bearerHeader);
 
    if (bearerHeader === null) {
       console.log("token NULL", bearerHeader);
@@ -11,15 +10,13 @@ const verifyToken = async (req, res, next) => {
    }
 
    try {
-      const token = bearerHeader.split(" ")[1]  ;
+      const token = bearerHeader.split(" ")[1];
 
-      console.log("auth token :",token);
+      console.log("auth token :", token);
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECERT);
       if (decoded) {
          console.log("auth req.body.dealer", decoded.dealerid);
          req.body.dealer = decoded.dealerid;
-
-    
       } else {
          console.log("Unauthorized");
       }
