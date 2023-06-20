@@ -1,6 +1,6 @@
 LIVE LINK : https://assignment-1-karma659.vercel.app/
 
-Frontend  ->  React.js , Tailwindcss  
+Frontend  ->  React.js , Tailwind Css  
 Backend   ->  Node.js , Express    
 Database  ->  MongoDb    
 ODM       ->  Mongoose
