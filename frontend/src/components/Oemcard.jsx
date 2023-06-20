@@ -2,17 +2,28 @@ import React from "react";
 
 const Oemcard = ({card}) => {
    return (
-      <div className="  p-3 w-30 h-30 border-4 border-gray-600 rounded-md  bg-gray-300 text-left  ">
-         <h2 className="font-extrabold text-xl ">
-            {" "}
-            <span>{card.model}</span>{" "}
+      <div className="  p-2 w-30 h-30  text-left rounded-lg shadow bg-gray-100 hover:bg-gray-300">
+         <h2 className="font-extrabold text-xl text-center bg-red-500 rounded-md shadow text-white ">
+            {card.model}
          </h2>
-         <h5>year {card.year}</h5>
-         <h5>listPrice {card.listPrice}</h5>
-         <h5>availableColors {card.availableColors}</h5>
-         <h5>mileage {card.mileage}</h5>
-         <h5>power {card.power}</h5>
-         <h5>maxSpeed {card.maxSpeed}</h5>
+         <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">Year :</span> {card.year}
+                  </h6>
+                  <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">List price :</span> {card.listPrice}
+                  </h6>
+                  <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">Available colors :</span> {card.availableColors}
+                  </h6>
+                  <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">Mileage :</span> {card.mileage}
+                  </h6>
+                  <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">Power :</span> {card.power}
+                  </h6>
+                  <h6 className=" text-gray-600 text-xl">
+                     <span className=" text-base text-green-700">Max speed :</span> {card.maxSpeed}
+                  </h6>
       </div>
    );
 };

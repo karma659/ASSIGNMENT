@@ -45,12 +45,12 @@ const EditPopup = ({productId, onClose}) => {
    };
 
    return (
-    <div className="edit-popup ml-20 mr-20 mb-10 mt-10  border border-black bg-transparent">
+    <div className="edit-popup ml-40 mr-40  mt-5  border border-black bg-transparent">
         
-         <div className="edit-content">
+     
             <h2 className="text-center">Edit Product</h2>
             {/* Render a form for editing the product */}
-        <div  className="flex">
+        <div  className="flex ">
              <div className="flex flex-col w-1/2 p-4">
                <label className="block mb-4">CurrentPrice :</label>
                <label className="block mb-4">kmsOnOdometer:</label>
@@ -123,7 +123,7 @@ const EditPopup = ({productId, onClose}) => {
   
             
          </div>
-      </div>
+  
    );
 };
 

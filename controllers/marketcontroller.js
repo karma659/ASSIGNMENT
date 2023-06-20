@@ -8,7 +8,7 @@ const getall = async (req, res) => {
       res.send(data);
    } catch (err) {
       res.send(err.message);
-      console.log("err:", err);
+      console.log("err :", err);
    }
 };
 
@@ -18,10 +18,10 @@ const getDealerInventory = async (req, res) => {
    console.log(req.body);
    console.log("ID:", ID);
    try {
-      const notes = await MarketplaceInventoryModel.find({dealer: ID})
+      const car = await MarketplaceInventoryModel.find({dealer: ID})
          .populate("dealer")
          .populate("oemSpecs");
-      res.send(notes);
+      res.send(car);
    } catch (err) {
       console.log({msg: "Error Occured", error: err});
    }
@@ -41,7 +41,7 @@ const deleteCar = async (req, res) => {
    const ID = req.params.id;
    try {
       await MarketplaceInventoryModel.findByIdAndDelete({_id: ID});
-      res.send(`Note with ID ${ID} Deleted`);
+      res.send(`car  Deleted`);
    } catch (err) {
       console.log({msg: "Error Occured", error: err});
    }

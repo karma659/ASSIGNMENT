@@ -71,7 +71,7 @@ const MyInventory = () => {
     
 
       <div className= "py-20 " >
-      <h1 className="text-center">  My Inventory </h1>
+      <h1 className="text-center text-gray-600 text-3xl">  My Inventory </h1>
       {/* <div>
         {selectedProductId && (
           <EditPopup productId={selectedProductId} onClose={handleEditPopupClose} />

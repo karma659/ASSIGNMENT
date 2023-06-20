@@ -23,7 +23,7 @@ const verifyToken = async (req, res, next) => {
       next();
    } catch (err) {
       console.log("ERROR  Authentication error ", err);
-      res.status(498).json({msg: "Incorrect Login , Try Again "});
+      res.redirect('/Login');
    }
 };
 

@@ -6,140 +6,106 @@ import Navbarr from "./Navbarr";
 import {useNavigate} from "react-router-dom";
 
 const OemSpecs = () => {
-  const navigate = useNavigate();
+   const navigate = useNavigate();
    const [cards, setCards] = useState([]);
    const [filteredCards, setFilteredCards] = useState([]);
    const [priceFilter, setPriceFilter] = useState("");
    const [colorFilter, setColorFilter] = useState("");
    const [mileageFilter, setMileageFilter] = useState("");
-   const [searchInput, setSearchInput] = useState('');
+   const [searchInput, setSearchInput] = useState("");
    const [loading, setLoading] = useState(false);
-  
+
    const fetchData = async () => {
-    try {
-       var token = Cookies.get("token");
-       console.log("local", token);
-       const response = await axios.get("http://localhost:5000/oem/", {
-          headers: {
-             Authorization: `Bearer ${token}`
-          }
-       });
-       console.log("OEM card data", response.data);
-       setFilteredCards(response.data);
-       setCards(response.data);
-      
-    } catch (error) {
-       console.log("ERROR OEMSPECS ", error);
-    }
- };
-
- const applyFilters = async() => {
-  let filtered = [...cards];
-
-  if (priceFilter) {
-     filtered = 
-     filtered.sort((a, b) => {
-      if (priceFilter === 'asc') {
-        return a.listPrice - b.listPrice;
-      } else {
-        return b.listPrice - a.listPrice;
+      try {
+         var token = Cookies.get("token");
+         console.log("local", token);
+         const response = await axios.get("http://localhost:5000/oem/", {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         });
+         console.log("OEM card data", response.data);
+         setFilteredCards(response.data);
+         setCards(response.data);
+      } catch (error) {
+         console.log("ERROR OEMSPECS ", error);
       }
-    });
-  }
+   };
 
-  if (colorFilter) {
-     filtered = filtered.filter(
-        card =>
-        colorFilter === card.availableColors[0] ||colorFilter ===  card.availableColors[1] ||colorFilter ===  card.availableColors[2]
-          
-     );
-  }
+   const applyFilters = async () => {
+      let filtered = [...cards];
 
-  if (mileageFilter) {
-     filtered = filtered.filter(card => card.mileage < mileageFilter);
-  }
+      if (priceFilter) {
+         filtered = filtered.sort((a, b) => {
+            if (priceFilter === "asc") {
+               return a.listPrice - b.listPrice;
+            } else {
+               return b.listPrice - a.listPrice;
+            }
+         });
+      }
 
-  
-  setFilteredCards(filtered);
-};
+      if (colorFilter) {
+         filtered = filtered.filter(
+            card =>
+               colorFilter === card.availableColors[0] ||
+               colorFilter === card.availableColors[1] ||
+               colorFilter === card.availableColors[2]
+         );
+      }
+
+      if (mileageFilter) {
+         filtered = filtered.filter(card => card.mileage < mileageFilter);
+      }
+
+      setFilteredCards(filtered);
+   };
 
    useEffect(() => {
       // Fetch or set the cards array
-    fetchData()
-      
-
+      fetchData();
    }, []);
 
    useEffect(() => {
-      applyFilters()
+      applyFilters();
    }, [priceFilter, colorFilter, mileageFilter]);
-
-   
-  //  useEffect(() => {
-  //   // Filter cards as the user types in the search query
-  //   const searchTimeout = setTimeout(() => {
-  //     setLoading(true); // Start loading state
-  //     const searchedCards = cards.filter((card) => {
-  //       const { model, year } = card;
-  //       const searchQueryLowercase = searchQuery;
-
-  //       return (
-          
-  //         model.toString().includes(searchQueryLowercase) ||
-  //         year.toString().includes(searchQueryLowercase)
-  //       );
-  //     });
-
-
-  //    if(searchedCards.length) setFilteredCards(searchedCards);
-  //     setLoading(false); // End loading state
-  //   }, 1000); // Add a slight delay (e.g., 300ms) to avoid frequent filtering on every keystroke
-  //   return () => clearTimeout(searchTimeout);
-  // }, [searchQuery,cards]);
-
-
-
 
    const handleclick = card => {
       navigate("/OemEdit", {state: card});
    };
 
-   
-   const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    console.log(searchInput);
-    if (searchInput !== '') {
-    const filteredData =  cards.filter((item) => {
-      return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
-  })
-  console.log(filteredData);
-  setFilteredCards(filteredData);
-}
-else{
-  setFilteredCards(cards);
-}
- 
-   }
-  
+   const searchItems = searchValue => {
+      setSearchInput(searchValue);
+      console.log(searchInput);
+      if (searchInput !== "") {
+         const filteredData = cards.filter(item => {
+            return Object.values(item).join("").toLowerCase().includes(searchInput.toLowerCase());
+         });
+         console.log(filteredData);
+         setFilteredCards(filteredData);
+      } else {
+         setFilteredCards(cards);
+      }
+   };
+
    return (
-      <div className=" w-screen">
+      <div className=" w-screen ">
          <div>
             <Navbarr />
          </div>
 
          <div className="py-20 ">
-            <h1 className="text-center"> OEM CAR (ADD) </h1>
-            <div className="flex m-5 p-5 justify-evenly">
-
+            <h1 className="text-center text-3xl text-gray-500"> OEM  (Select Car) </h1>
+          
+            <div className="flex ml-10 mr-10  mb-4 mt-4 text-gray-600 text-sm justify-evenly">
                {/* Price Filter */}
-               <select value={priceFilter} onChange={e => setPriceFilter(e.target.value)}>
+               <select className="pl-2 pb-0 border rounded-sm border-black hover:bg-gray-200" value={priceFilter} onChange={e => setPriceFilter(e.target.value)}>
                   <option value="">Prices</option>
                   <option value="asc">sort low to high</option>
                   <option value="des">sort high to low</option>
-           
                </select>
                {/* Color Filter */}
-               <select value={colorFilter} onChange={e => setColorFilter(e.target.value)}>
+               <select  className="pl-2 pr-7 border rounded-sm border-black hover:bg-gray-200" value={colorFilter} onChange={e => setColorFilter(e.target.value)}>
                   <option value="">Colors</option>
                   <option value="Red">Red</option>
                   <option value="Blue">Blue</option>
@@ -149,7 +115,7 @@ else{
                </select>
 
                {/* Mileage Filter */}
-               <select value={mileageFilter} onChange={e => setMileageFilter(e.target.value)}>
+               <select  className="pl-2 pr-2 border rounded-sm border-black hover:bg-gray-200"  value={mileageFilter} onChange={e => setMileageFilter(e.target.value)}>
                   <option value="">Mileages</option>
                   <option value="10000">Up to 10,000 miles</option>
                   <option value="50000">Up to 50,000 miles</option>
@@ -157,24 +123,28 @@ else{
                </select>
 
                {/*sEaRCH FILTER*/}
-               <div>
-                  <label>Search</label>
-                  <br/>
+               <div className="flex">
+                  <label className="mr-2">🔎 </label>
+                  <br />
                   <input
-                     className="border border-gray-400"
+                     className="border border-black rounded-sm pl-1  hover:bg-gray-200"
                      type="text"
-                     placeholder="Search by  model, or year"
-                    
-                     onChange={(e) => searchItems(e.target.value)}
+                     placeholder="Search by  model, or year "
+                     onChange={e => searchItems(e.target.value)}
                   />
                </div>
+
             </div>
+
             {loading ? (
                <div className="text-center font-extrabold">Loading...</div>
             ) : (
                <div className=" ml-20 mr-20 flex flex-wrap ">
                   {filteredCards.map((card, index) => (
-                     <button className="w-30 h-30 m-5 " key={card._id} onClick={() => handleclick(card)}>
+                     <button
+                        className="w-30 h-30 m-5 "
+                        key={card._id}
+                        onClick={() => handleclick(card)}>
                         <Oemcard card={card} key={card._id} />
                      </button>
                   ))}

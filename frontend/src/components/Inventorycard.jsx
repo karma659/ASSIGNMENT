@@ -32,7 +32,7 @@ const Inventorycard = ({card,onEdit,onDelete}) => {
     };
 
   return (
-    <div className=" ml-20 mr-20 mb-10 mt-10 border border-black rounded-md">
+    <div className=" ml-40 mr-40 shadow  mb-10 mt-10 border border-black rounded-md">
     
 
        <div className=" flex  justify-evenly ">

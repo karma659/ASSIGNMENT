@@ -1,9 +1,8 @@
 var express = require("express");
-const { signup , login } =require('../controllers/register');
+const {signup, login} = require("../controllers/register");
 const dealerrouter = express.Router();
 
-dealerrouter.post('/signup', signup);
-dealerrouter.post('/login', login);
+dealerrouter.post("/signup", signup); // signup
+dealerrouter.post("/login", login); // login
 
-
-module.exports= dealerrouter;
+module.exports = dealerrouter;
