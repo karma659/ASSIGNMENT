@@ -5,36 +5,36 @@ import Marketcard from "./Marketcard";
 import Navbarr from "./Navbarr";
 
 const Market = () => {
-   const [Cards, setCards] = useState([]);
+   const [cards, setcards] = useState([]);
    const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
+   const fetchData = async () => {
       var token = Cookies.get("token");
       console.log("token", token);
+      try {
+         const response = await axios.get(`/marketPlaceInventory/`, {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         });
 
-      if (!token) {
-         window.location.href = "/Login";
+         const data = await response.data;
+
+         setcards(data);
+         setLoading(false);
+         console.log("mcards", cards, loading);
+      } catch (error) {
+         console.log("ERROR MARKET PAGE LOADING ", error);
+         //    window.location.href = "/Login";
       }
+   };
 
-      const fetchData = async () => {
-         try {
-            const response = await axios.get(`/marketPlaceInventory`, {
-               headers: {
-                  Authorization: `Bearer ${token}`
-               }
-            });
-            const data = await response.data;
-            setCards(data);
-         } catch (error) {
-            console.log("ERROR MARKET PAGE LOADING ", error);
-            window.location.href = "/Login";
-         }
-      };
+   useEffect(() => {
       fetchData();
    }, []);
 
    return (
-      <div className="    w-screen bg-gray-50">
+      <div className="w-screen bg-gray-50">
          <div>
             <Navbarr />
          </div>
@@ -42,9 +42,17 @@ const Market = () => {
          <div className="py-20 ">
             <h1 className="text-center text-3xl text-gray-500"> Market Place </h1>
             <div className=" ">
-               {Cards.map(card => (
-                  <Marketcard card={card} key={card._id} />
-               ))}
+               {loading ? (
+                  <div>
+                     <h1>LOADING......</h1>
+                  </div>
+               ) : (
+                  <div>
+                     {cards.map((card, index) => (
+                        <Marketcard card={card} key={index} />
+                     ))}
+                  </div>
+               )}
             </div>
          </div>
       </div>

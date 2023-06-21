@@ -8,6 +8,8 @@ const Signup = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [dataa,setdata]= useState("");
+
+
    const handleSignup = async e => {
       e.preventDefault();
 
@@ -20,7 +22,7 @@ const Signup = () => {
 
     
          if(response.status === 200){
-            console.log("data",response.data);
+            // console.log("data",response.data);
            setdata(response.data.msg);
          }else{
             console.log("Sign Up Successful",response.status);

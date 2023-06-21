@@ -4,13 +4,12 @@ const MarketplaceInventoryModel = require("../models/marketPlaceInventorySchema"
 const getall = async (req, res) => {
    try {
       const data = await MarketplaceInventoryModel.find().populate("oemSpecs");
-      console.log("data ",data);
+
+      console.log("data length ", data.length);
       res.send(data);
-
-
    } catch (err) {
       res.send(err.message);
-      console.log("err :", err);
+      console.log("error Getting MARKET CARS  :", err);
    }
 };
 

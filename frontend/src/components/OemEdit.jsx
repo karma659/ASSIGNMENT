@@ -82,7 +82,7 @@ const OemEdit = () => {
             }
          );
 
-            console.log("data", response.data);
+            console.log("dataaa", response.data);
             navigate("/MyInventory");
          } catch (error) {
             console.error("Oem EDIT error ", error);

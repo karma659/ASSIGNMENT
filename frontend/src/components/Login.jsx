@@ -18,9 +18,8 @@ const Login = () => {
             password: password
          });
            
-
          console.log("response",response );
-       if(response.status===200){
+       if(response.status === 200){
            setdata(response.data.msg);
            console.log("erdm",response.data.msg);
        }
@@ -31,8 +30,6 @@ const Login = () => {
          Cookies.set('token',tok);
          document.cookie = `token=${tok}`;
        
-        //  navigate('/Market');
-        
             console.log("Login SUCCESSFULL");
             navigate("/Market");
          }

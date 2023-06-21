@@ -17,10 +17,11 @@ const verifyToken = async (req, res, next) => {
       if (decoded) {
          console.log("auth req.body.dealer", decoded.dealerid);
          req.body.dealer = decoded.dealerid;
+         next();
       } else {
          console.log("Unauthorized");
       }
-      next();
+   
    } catch (err) {
       console.log("ERROR  Authentication error ", err);
 
