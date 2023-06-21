@@ -18,7 +18,7 @@ const OemSpecs = () => {
    const fetchData = async () => {
       try {
          var token = Cookies.get("token");
-         console.log("local", token);
+         // console.log("local", token);
          const response = await axios.get(`/oem/`, {
             headers: {
                Authorization: `Bearer ${token}`
@@ -27,6 +27,7 @@ const OemSpecs = () => {
          console.log("OEM card data", response.data);
          setFilteredCards(response.data);
          setCards(response.data);
+        
       } catch (error) {
          console.log("ERROR OEMSPECS ", error);
       }
@@ -78,11 +79,13 @@ const OemSpecs = () => {
       setSearchInput(searchValue);
       console.log(searchInput);
       if (searchInput !== "") {
+         setLoading(true);
          const filteredData = cards.filter(item => {
             return Object.values(item).join("").toLowerCase().includes(searchInput.toLowerCase());
          });
          console.log(filteredData);
          setFilteredCards(filteredData);
+         setLoading(false);
       } else {
          setFilteredCards(cards);
       }
@@ -95,17 +98,23 @@ const OemSpecs = () => {
          </div>
 
          <div className="py-20 ">
-            <h1 className="text-center text-3xl text-gray-500"> OEM  (Select Car) </h1>
-          
+            <h1 className="text-center text-3xl text-gray-500"> OEM (Select Car) </h1>
+
             <div className="flex ml-10 mr-10  mb-4 mt-4 text-gray-600 text-sm justify-evenly">
                {/* Price Filter */}
-               <select className="pl-2 pb-0 border rounded-sm border-black hover:bg-gray-200" value={priceFilter} onChange={e => setPriceFilter(e.target.value)}>
+               <select
+                  className="pl-2 pb-0 border rounded-sm border-black hover:bg-gray-200"
+                  value={priceFilter}
+                  onChange={e => setPriceFilter(e.target.value)}>
                   <option value="">Prices</option>
                   <option value="asc">sort low to high</option>
                   <option value="des">sort high to low</option>
                </select>
                {/* Color Filter */}
-               <select  className="pl-2 pr-7 border rounded-sm border-black hover:bg-gray-200" value={colorFilter} onChange={e => setColorFilter(e.target.value)}>
+               <select
+                  className="pl-2 pr-7 border rounded-sm border-black hover:bg-gray-200"
+                  value={colorFilter}
+                  onChange={e => setColorFilter(e.target.value)}>
                   <option value="">Colors</option>
                   <option value="Red">Red</option>
                   <option value="Blue">Blue</option>
@@ -115,7 +124,10 @@ const OemSpecs = () => {
                </select>
 
                {/* Mileage Filter */}
-               <select  className="pl-2 pr-2 border rounded-sm border-black hover:bg-gray-200"  value={mileageFilter} onChange={e => setMileageFilter(e.target.value)}>
+               <select
+                  className="pl-2 pr-2 border rounded-sm border-black hover:bg-gray-200"
+                  value={mileageFilter}
+                  onChange={e => setMileageFilter(e.target.value)}>
                   <option value="">Mileages</option>
                   <option value="10000">Up to 10,000 miles</option>
                   <option value="50000">Up to 50,000 miles</option>
@@ -133,14 +145,13 @@ const OemSpecs = () => {
                      onChange={e => searchItems(e.target.value)}
                   />
                </div>
-
             </div>
 
             {loading ? (
                <div className="text-center font-extrabold">Loading...</div>
             ) : (
                <div className=" ml-20 mr-20 flex flex-wrap ">
-                  {filteredCards.map((card, index) => (
+                  {filteredCards.map(card => (
                      <button
                         className="w-30 h-30 m-5 "
                         key={card._id}

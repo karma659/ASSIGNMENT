@@ -17,25 +17,27 @@ const Login = () => {
             email: email,
             password: password
          });
+           
 
-         console.log("response", response);
-         if (response.status === 200) {
-            setdata(response.data.msg);
-            console.log("erdm", response.data.msg);
-         } else if (response.status === 201) {
-            const tok = response.data.token;
-            console.log("LF token ", tok);
-
-            Cookies.set("token", tok);
-            document.cookie = `token=${tok}`;
-
-            //  navigate('/Market');
-
+         console.log("response",response );
+       if(response.status===200){
+           setdata(response.data.msg);
+           console.log("erdm",response.data.msg);
+       }
+       else if( response.status === 201){
+         const tok = response.data.token  ;
+         console.log("LF token ",tok);
+        
+         Cookies.set('token',tok);
+         document.cookie = `token=${tok}`;
+       
+        //  navigate('/Market');
+        
             console.log("Login SUCCESSFULL");
             navigate("/Market");
          }
       } catch (error) {
-         console.log("ERROR LOGIN", error);
+         console.error("ERROR LOGIN",error); 
       }
    };
 

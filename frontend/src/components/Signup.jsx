@@ -18,11 +18,12 @@ const Signup = () => {
             password: password
          });
 
-         console.log("ssss",response.status);
+    
          if(response.status === 200){
             console.log("data",response.data);
            setdata(response.data.msg);
          }else{
+            console.log("Sign Up Successful",response.status);
        navigate("/Login")
       }
       } catch (error) {

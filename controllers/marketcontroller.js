@@ -4,8 +4,10 @@ const MarketplaceInventoryModel = require("../models/marketPlaceInventorySchema"
 const getall = async (req, res) => {
    try {
       const data = await MarketplaceInventoryModel.find().populate("oemSpecs");
-
+      console.log("data ",data);
       res.send(data);
+
+
    } catch (err) {
       res.send(err.message);
       console.log("err :", err);
@@ -15,7 +17,7 @@ const getall = async (req, res) => {
 // GET DEALER INVENTORY
 const getDealerInventory = async (req, res) => {
    const ID = req.body.dealer;
-   console.log(req.body);
+   // console.log(req.body);
    console.log("ID:", ID);
    try {
       const car = await MarketplaceInventoryModel.find({dealer: ID})
@@ -30,7 +32,7 @@ const getDealerInventory = async (req, res) => {
 //Create MyCar post From OEM
 const createCar = async (req, res) => {
    const payload = req.body;
-   console.log("payload ", payload);
+   // console.log("payload ", payload);
    const car = new MarketplaceInventoryModel(payload);
    await car.save();
    res.send(car);

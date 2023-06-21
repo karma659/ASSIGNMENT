@@ -9,7 +9,7 @@ const signup = async (req, res) => {
       const userr = await Dealer.find({email});
 
       if (userr.length) {
-         console.log("userr", userr);
+         // console.log("userr", userr);
          res.status(200).json({msg: "User exist please Login"});
       } else {
          //Hash password
@@ -30,17 +30,15 @@ const login = async (req, res) => {
 
    try {
       const user = await Dealer.findOne({email});
-      console.log("user:", user._id);
 
       if (user && (await bcrypt.compare(password, user.password))) {
-         const token = jwt.sign({dealerid: user._id}, '123456789' , {
+         const token = jwt.sign({dealerid: user._id}, process.env.ACCESS_TOKEN_SECERT, {
             expiresIn: "12h"
          });
 
-         res.header("authorization", "Bearer " + token);
          res.setHeader("authorization", `Bearer ${token}`);
 
-         console.log({msg: "User successfully logged in", token: token});
+         // console.log({msg: "User successfully logged in", token: token});
 
          res.status(201).json({msg: "User successfully logged in", token: token});
       } else {
