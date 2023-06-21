@@ -16,10 +16,9 @@ dotenv.config();
 connectDb();
 var port = process.env.PORT || 5000;
 
-
-
 const dirname = path.resolve();
 app.use("/uploads", express.static(path.join(dirname, "/uploads")));
+
 if (process.env.NODE_ENV === "production") {
    app.use(express.static(path.join(dirname, "/frontend/build")));
 
@@ -32,15 +31,13 @@ if (process.env.NODE_ENV === "production") {
    });
 }
 
-
 //Go to Respective Routes
 const dealerRoutes = require("./routes/dealerroutes");
 const OemRoutes = require("./routes/Oemroutes");
 const marketPlaceInventoryRoutes = require("./routes/marketPlaceInventoryroutes");
-app.use("/dealer", dealerRoutes);  
-app.use("/oem", verifyToken, OemRoutes);
-app.use("/marketPlaceInventory", verifyToken, marketPlaceInventoryRoutes);
-
+app.use("/dealer", dealerRoutes); // Dealer Routes
+app.use("/oem", verifyToken, OemRoutes); //Oem Routes
+app.use("/marketPlaceInventory", verifyToken, marketPlaceInventoryRoutes); //MarketPlace Routes
 
 //Port Listening
 app.listen(port, (req, res) => {

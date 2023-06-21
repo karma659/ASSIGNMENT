@@ -31,7 +31,7 @@ const getOemId = async (req, res) => {
 //create an ARRAY of oem MODELS
 const createOems = async (req, res) => {
    const data = req.body.data;
-   console.log("data:", data);
+   // console.log("data:", data);
    try {
       const oems = await oemSpecs.insertMany(data);
       res.json(oems);

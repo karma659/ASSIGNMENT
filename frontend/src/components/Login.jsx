@@ -16,7 +16,7 @@ const Login = () => {
    const handleLogin = async () => {
     
       try {
-         const response = await axios.post("http://localhost:5000/dealer/login", {
+         const response = await axios.post(`/dealer/login`, {
             email: email,
             password: password
          });
@@ -29,10 +29,9 @@ const Login = () => {
        }
        else if( response.status === 201){
          const tok = response.data.token  ;
-         console.log("LF token ",tok);
+         // console.log("LF token ",tok);
         
          Cookies.set('token',tok);
-         document.cookie = `token=${tok}`;
        
         //  navigate('/Market');
         
@@ -44,7 +43,8 @@ const Login = () => {
          
        
       } catch (error) {
-         console.error("ERROR LOGIN",error); 
+      
+         console.log("ERROR LOGIN",error); 
       }
    };
 

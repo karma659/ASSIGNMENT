@@ -12,17 +12,18 @@ const Signup = () => {
       e.preventDefault();
 
       try {
-         const response = await axios.post("http://localhost:5000/dealer/signup", {
+         const response = await axios.post(`/dealer/signup`, {
             name: username,
             email: email,
             password: password
          });
 
-         console.log("ssss",response.status);
+    
          if(response.status === 200){
             console.log("data",response.data);
            setdata(response.data.msg);
          }else{
+            console.log("Sign Up Successful",response.status);
        navigate("/Login")
       }
       } catch (error) {
