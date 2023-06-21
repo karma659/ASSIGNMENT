@@ -13,7 +13,7 @@ const verifyToken = async (req, res, next) => {
       const token = bearerHeader.split(" ")[1];
 
       console.log("auth token :", token);
-      const decoded = jwt.verify(token,'123456789');
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECERT);
       if (decoded) {
          console.log("auth req.body.dealer", decoded.dealerid);
          req.body.dealer = decoded.dealerid;
@@ -21,10 +21,8 @@ const verifyToken = async (req, res, next) => {
       } else {
          console.log("Unauthorized");
       }
-   
    } catch (err) {
       console.log("ERROR  Authentication error ", err);
-
    }
 };
 
