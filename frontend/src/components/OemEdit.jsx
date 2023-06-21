@@ -78,7 +78,7 @@ const OemEdit = () => {
          console.log("local", token);
 
          const response = await axios.post(
-            "http://localhost:5000/marketPlaceInventory/create",
+           `/marketPlaceInventory/create`,
             data,
             {
                headers: {

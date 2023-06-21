@@ -19,7 +19,7 @@ const OemSpecs = () => {
       try {
          var token = Cookies.get("token");
          console.log("local", token);
-         const response = await axios.get("http://localhost:5000/oem/", {
+         const response = await axios.get(`/oem/`, {
             headers: {
                Authorization: `Bearer ${token}`
             }

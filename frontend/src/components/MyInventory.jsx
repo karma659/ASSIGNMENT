@@ -23,7 +23,7 @@ const MyInventory = () => {
     try {
       var token = Cookies.get('token');
       console.log("local", token);
-      const response = await axios.get('http://localhost:5000/marketPlaceInventory/dealer', {
+      const response = await axios.get(`/marketPlaceInventory/dealer`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

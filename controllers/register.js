@@ -33,7 +33,7 @@ const login = async (req, res) => {
       console.log("user:", user._id);
 
       if (user && (await bcrypt.compare(password, user.password))) {
-         const token = jwt.sign({dealerid: user._id}, process.env.ACCESS_TOKEN_SECERT, {
+         const token = jwt.sign({dealerid: user._id}, '123456789' , {
             expiresIn: "12h"
          });
 

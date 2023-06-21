@@ -12,7 +12,7 @@ const Signup = () => {
       e.preventDefault();
 
       try {
-         const response = await axios.post("http://localhost:5000/dealer/signup", {
+         const response = await axios.post(`/dealer/signup`, {
             name: username,
             email: email,
             password: password

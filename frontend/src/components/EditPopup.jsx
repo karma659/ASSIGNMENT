@@ -31,7 +31,7 @@ const EditPopup = ({productId, onClose}) => {
          console.log("local", token);
          console.log("productid", productId);
 
-         await axios.patch(`http://localhost:5000/marketPlaceInventory/update/${productId}`, data, {
+         await axios.patch(`/marketPlaceInventory/update/${productId}`, data, {
             headers: {
                Authorization: `Bearer ${token}`
             }

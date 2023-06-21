@@ -16,7 +16,7 @@ const Inventorycard = ({card,onEdit,onDelete}) => {
       var token = Cookies.get('token');
        console.log("local",token);
       
-      await axios.delete(`http://localhost:5000/marketPlaceInventory/delete/${id}`, {
+      await axios.delete(`/marketPlaceInventory/delete/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },}
