@@ -8,27 +8,19 @@ import Navbarr from "./Navbarr";
 const MyInventory = () => {
    const [cards, setCards] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
+      fetchData();
+   }, []);
 
-
-    fetchData();
-
-
-  }, []);
-
-
-  const fetchData = async () => {
-
-    try {
-      var token = Cookies.get('token');
-      console.log("local", token);
-      const response = await axios.get(`/marketPlaceInventory/dealer`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-      );
-
+   const fetchData = async () => {
+      try {
+         var token = Cookies.get("token");
+         console.log("local", token);
+         const response = await axios.get(`/marketPlaceInventory/dealer`, {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         });
 
          console.log("card data", response.data);
 

@@ -6,6 +6,7 @@ const {verifyToken} = require("./middlewares/authentication");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const multer = require("multer");
 
 var app = express();
 app.use(cors());
@@ -22,7 +23,7 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 if (process.env.NODE_ENV === "production") {
    app.use(express.static(path.join(__dirname, "/frontend/build")));
 
-   app.get("*", (req, res) =>
+   app.get("/", (req, res) =>
       res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
    );
 } else {
@@ -35,6 +36,10 @@ if (process.env.NODE_ENV === "production") {
 const dealerRoutes = require("./routes/dealerroutes");
 const OemRoutes = require("./routes/Oemroutes");
 const marketPlaceInventoryRoutes = require("./routes/marketPlaceInventoryroutes");
+// const { getall } = require("./controllers/marketcontroller");
+
+
+
 app.use("/dealer", dealerRoutes); // Dealer Routes
 app.use("/oem", verifyToken, OemRoutes); //Oem Routes
 app.use("/marketPlaceInventory", verifyToken, marketPlaceInventoryRoutes); //MarketPlace Routes

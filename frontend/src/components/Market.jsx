@@ -9,23 +9,25 @@ const Market = () => {
    const [loading, setLoading] = useState(true);
 
    const fetchData = async () => {
-      var token = Cookies.get("token");
-      console.log("token", token);
       try {
-         const response = await axios.get(`/marketPlaceInventory/`, {
+         var token = Cookies.get("token");
+         // console.log("token", token);
+         const response = await axios.get("/marketPlaceInventory", {
             headers: {
+              "Content-Type": "application/json",
                Authorization: `Bearer ${token}`
             }
          });
 
-         const data = await response.data;
+         console.log("Marketcard data ", response, response.status, response.data);
 
-         setcards(data);
+         if (Array.isArray(response.data)) {
+            setcards(response.data);
+         }
          setLoading(false);
-         console.log("mcards", cards, loading);
+         // console.log("mcards ", cards, loading);
       } catch (error) {
          console.log("ERROR MARKET PAGE LOADING ", error);
-         //    window.location.href = "/Login";
       }
    };
 
@@ -48,8 +50,10 @@ const Market = () => {
                   </div>
                ) : (
                   <div>
-                     {cards.map((card, index) => (
-                        <Marketcard card={card} key={index} />
+                     {cards?.map(card => (
+                        <div key={card._id}>
+                           <Marketcard card={card} key={card._id} />
+                        </div>
                      ))}
                   </div>
                )}

@@ -27,7 +27,6 @@ const OemSpecs = () => {
          console.log("OEM card data", response.data);
          setFilteredCards(response.data);
          setCards(response.data);
-        
       } catch (error) {
          console.log("ERROR OEMSPECS ", error);
       }

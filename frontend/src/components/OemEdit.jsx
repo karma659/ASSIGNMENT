@@ -6,7 +6,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 const OemEdit = () => {
    const location = useLocation();
    const navigate = useNavigate();
-   const {_id, model, year, listPrice, availableColors, mileage, power, maxSpeed} = location.state;
+   const {_id, model, year, listPrice, availableColors, mileage, power, maxSpeed} =
+      location.state;
 
    // const [items, setItems] = useState([""]);
    const [image, setimage] = useState("");
@@ -46,7 +47,7 @@ const OemEdit = () => {
       e.preventDefault();
 
       if (
-         image.length &&
+         image &&
          title.length &&
          currentPrice.length &&
          description.length &&
@@ -55,32 +56,32 @@ const OemEdit = () => {
          previousBuyers.length &&
          registrationPlace.length
       ) {
-         const data = {
-            oemSpecs: _id,
-            image: image,
-            title: title,
-            currentPrice: currentPrice,
-            description: description,
-            kmsOnOdometer: kmsOnOdometer,
-            accidentsReported: accidentsReported,
-            previousBuyers: previousBuyers,
-            registrationPlace: registrationPlace,
-            majorScratches: majorScratches,
-            originalPaint: originalPaint
-         };
+         const data = new FormData();
+         data.append("oemSpecs", _id);
+         data.append("image", image);
+         data.append("title", title);
+         data.append("currentPrice", currentPrice);
+         data.append("description", description);
+         data.append("kmsOnOdometer", kmsOnOdometer);
+         data.append("accidentsReported", accidentsReported);
+         data.append("previousBuyers", previousBuyers);
+         data.append("registrationPlace", registrationPlace);
+         data.append("majorScratches", majorScratches);
+         data.append("originalPaint", originalPaint);
+         
+
+         console.log("form data", data.get("image"));
+
+         console.log("form dataa", dataa);
          try {
             var token = Cookies.get("token");
             // console.log("local", token);
 
-         const response = await axios.post(
-           `/marketPlaceInventory/create`,
-            data,
-            {
+            const response = await axios.post(`/marketPlaceInventory/create`, data, {
                headers: {
                   Authorization: `Bearer ${token}`
                }
-            }
-         );
+            });
 
             console.log("dataaa", response.data);
             navigate("/MyInventory");
@@ -96,7 +97,10 @@ const OemEdit = () => {
    return (
       <div className="ml-20 mr-20 mb-10 mt-10 bg-gray-100 rounded-lg shadow ">
          <h1 className="text-center text-2xl text-">Add Car Details</h1>
-         <form className=" flex  justify-evenly" onSubmit={handleSubmit}>
+         <form
+            className=" flex  justify-evenly"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data">
             <div className="flex-col m-5 w-[50%] ">
                <div className="flex-col  gap-5 mb-2">
                   <div className="flex  ">
@@ -143,16 +147,17 @@ const OemEdit = () => {
                   <div className="flex flex-col w-1/2 pl-4">
                      <input
                         className="border border-neutral-400  mb-2"
-                        type="text"
-                        placeholder="image"
-                        value={image}
-                        onChange={e => setimage(e.target.value)}
+                        type="file"
+                        name="image"
+                        // value={image}
+                        onChange={e => setimage(e.target.files[0])}
                      />
                      <input
                         className=" border border-neutral-400  mb-2"
                         type="text"
                         placeholder="title"
                         value={title}
+                        name="title"
                         onChange={e => settitle(e.target.value)}
                      />
 
@@ -160,6 +165,7 @@ const OemEdit = () => {
                         className="border  border-neutral-400 mb-2"
                         type="text"
                         placeholder="currentPrice"
+                        name="currentPrice"
                         value={currentPrice}
                         onChange={e => setcurrentPrice(e.target.value)}
                      />
@@ -168,6 +174,7 @@ const OemEdit = () => {
                         className="border border-neutral-400  mb-2"
                         type="text"
                         placeholder="kmsOnOdometer"
+                        name="kmsOnOdometer"
                         value={kmsOnOdometer}
                         onChange={e => setkmsOnOdometer(e.target.value)}
                      />
@@ -176,6 +183,7 @@ const OemEdit = () => {
                         className=" border border-neutral-400 mb-2"
                         type="text"
                         placeholder="accidentsReported"
+                        name="accidentsReported"
                         value={accidentsReported}
                         onChange={e => setaccidentsReported(e.target.value)}
                      />
@@ -184,6 +192,7 @@ const OemEdit = () => {
                         className=" border border-neutral-400  mb-2"
                         type="text"
                         placeholder="previousBuyers"
+                        name="previousBuyers"
                         value={previousBuyers}
                         onChange={e => setpreviousBuyers(e.target.value)}
                      />
@@ -192,6 +201,7 @@ const OemEdit = () => {
                         className="border border-neutral-400 mb-2"
                         type="text"
                         placeholder="registrationPlace"
+                        name="registrationPlace"
                         value={registrationPlace}
                         onChange={e => setregistrationPlace(e.target.value)}
                      />
@@ -199,6 +209,7 @@ const OemEdit = () => {
                      <input
                         className=" border border-neutral-400  mb-4  "
                         type="checkbox"
+                        name="originalPaint"
                         checked={originalPaint}
                         onChange={e => setoriginalPaint(e.target.checked)}
                      />
@@ -206,6 +217,7 @@ const OemEdit = () => {
                      <input
                         className="border  border-neutral-400 mb-4  justify-items-start text-left  items-start "
                         type="checkbox"
+                        name="majorScratches"
                         checked={majorScratches}
                         onChange={e => setmajorScratches(e.target.checked)}
                      />

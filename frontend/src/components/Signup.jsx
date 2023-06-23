@@ -7,8 +7,7 @@ const Signup = () => {
    const [username, setUsername] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
-   const [dataa,setdata]= useState("");
-
+   const [dataa, setdata] = useState("");
 
    const handleSignup = async e => {
       e.preventDefault();
@@ -20,30 +19,26 @@ const Signup = () => {
             password: password
          });
 
-    
-         if(response.status === 200){
+         if (response.status === 200) {
             // console.log("data",response.data);
-           setdata(response.data.msg);
-         }else{
-            console.log("Sign Up Successful",response.status);
-       navigate("/Login")
-      }
+            setdata(response.data.msg);
+         } else {
+            console.log("Sign Up Successful", response.status);
+           navigate("/Login");
+         }
       } catch (error) {
          console.error("ERROR signup ", error);
-      
       }
    };
 
    return (
       <div className="flex items-center justify-center h-screen w-screen bg-white m-30  ">
-     
-   
-         <div >
-            <form className=" flex-col " onSubmit={handleSignup} >
+         <div>
+            <form className=" flex-col " onSubmit={handleSignup}>
                <label className=" flex-col ">
-                 <h6> Name</h6>
-                  <input 
-                   className=" border-2 border-neutral-400"
+                  <h6> Name</h6>
+                  <input
+                     className=" border-2 border-neutral-400"
                      type="text"
                      placeholder="name"
                      value={username}
@@ -52,9 +47,9 @@ const Signup = () => {
                </label>
                <br />
                <label className="flex-col">
-               <h6>Email</h6>   
+                  <h6>Email</h6>
                   <input
-                   className=" border-2 border-neutral-400"
+                     className=" border-2 border-neutral-400"
                      type="text"
                      placeholder="email"
                      value={email}
@@ -63,9 +58,9 @@ const Signup = () => {
                </label>
                <br />
                <label className="flex-col">
-                <h6> Password  </h6> 
+                  <h6> Password </h6>
                   <input
-                   className=" border-2 border-neutral-400"
+                     className=" border-2 border-neutral-400"
                      type="password"
                      placeholder="Password"
                      value={password}
@@ -76,14 +71,17 @@ const Signup = () => {
                <button className="bg-red-700 rounded-md text-white p-2 " type="submit">
                   Sign Up
                </button>
-              
+
                <div className="py-3 ">
                   <p>
-                     Have an Account? <Link to={"/Login"}><button className="bg-green-700 rounded-md  text-white p-2 ">Login</button></Link>
+                     Have an Account?{" "}
+                     <Link to={"/Login"}>
+                        <button className="bg-green-700 rounded-md  text-white p-2 ">Login</button>
+                     </Link>
                   </p>
                </div>
             </form>
-           <h1>{dataa}</h1>  
+            <h1>{dataa}</h1>
          </div>
       </div>
    );

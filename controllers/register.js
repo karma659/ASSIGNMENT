@@ -18,7 +18,7 @@ const signup = async (req, res) => {
          await user.save();
 
          res.status(201).json({msg: "New user registered"});
-         res.redirect("/Login");
+ 
       }
    } catch (err) {
       console.log("ERROR Cant Signup", err);
@@ -37,10 +37,10 @@ const login = async (req, res) => {
          });
 
          res.setHeader("authorization", `Bearer ${token}`);
-          console.log({msg: "User successfully logged in", token: token});
+         console.log({msg: "User successfully logged in", token: token});
 
          res.status(201).json({msg: "User successfully logged in", token: token});
-         
+
       } else {
          res.status(200).send({msg: "Unauthorized  Invalid email or password"});
       }

@@ -15,8 +15,9 @@ const verifyToken = async (req, res, next) => {
       console.log("auth token :", token);
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECERT);
       if (decoded) {
-         console.log("auth req.body.dealer", decoded.dealerid);
+         console.log("auth req.body.dealer req.dealer", decoded.dealerid);
          req.body.dealer = decoded.dealerid;
+         req.dealer = decoded.dealerid;
          next();
       } else {
          console.log("Unauthorized");

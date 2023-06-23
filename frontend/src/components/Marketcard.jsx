@@ -1,10 +1,7 @@
 import React from "react";
 
 const Marketcard = ({card}) => {
-
-
    const Circle = ({color}) => {
-
       const circleStyle = {
          width: "10px",
          height: "10px",
@@ -19,10 +16,14 @@ const Marketcard = ({card}) => {
    return (
       <div className="ml-20 mr-20 mb-10 mt-10">
          <div className="container p-2 flex flex-col-reverse md:flex-row items-center justify-center bg-white border border-gray-300 rounded-lg shadow hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <div className="w-[40%] mx-20 h-70 border border-black ">
-               <img className="w-30 h-40 "  alt="" />
+            {/* <div className="w-[40%] mx-20 h-70 border border-black ">
+               <img className="w-40 h-40 " src={`../assets/${card.image}`} alt="" />
+            </div> */}
+            <div className=" mx-10 w-[40%]  ">
+               <div className="  w-50  rounded  overflow-hidden ">
+                  <img src={`http://localhost:5000/${card.image}`} class="    " />
+               </div>
             </div>
-
             <div className="  w-[50%] flex  justify-evenly ">
                <div>
                   <h6 className=" text-black text-xl">
@@ -70,7 +71,7 @@ const Marketcard = ({card}) => {
                   </h6>
                   <h6 className=" text-red-600 text-xl">
                      <span className=" text-base text-green-500">Major scratches :</span>{" "}
-                     {card.majorScratches}{" "}
+                     {card.majorScratches ? "Yes" : "No"}{" "}
                   </h6>
                   <h6 className=" text-red-600 text-xl">
                      <span className=" text-base text-green-500">Accidents reported :</span>{" "}
