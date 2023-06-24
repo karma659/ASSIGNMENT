@@ -1,4 +1,4 @@
-LIVE LINK : https://assignment-1-gamma.vercel.app/
+LIVE LINK : https://assignment-1-karma659.vercel.app/
 
 Frontend  ->  React.js , Tailwind Css  
 Backend   ->  Node.js , Express    
