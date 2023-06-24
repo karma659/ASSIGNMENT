@@ -55,9 +55,20 @@ const OemSpecs = () => {
       }
 
       if (mileageFilter) {
-         filtered = filtered.filter(card => card.mileage < mileageFilter);
+         filtered = filtered.filter(card => {
+            if (mileageFilter === "") {
+               return true; // No filter selected, include all cards
+            } else if (mileageFilter === "10") {
+               return Number(card.mileage) <= 10;
+            } else if (mileageFilter === "20") {
+               return Number(card.mileage) >= 10 && Number(card.mileage) <= 20;
+            } else if (mileageFilter === "30") {
+               return Number(card.mileage) <= 30 && Number(card.mileage) >= 20;
+            } else {
+               return true; // Invalid filter value, include all cards
+            }
+         });
       }
-
       setFilteredCards(filtered);
    };
 
@@ -128,9 +139,9 @@ const OemSpecs = () => {
                   value={mileageFilter}
                   onChange={e => setMileageFilter(e.target.value)}>
                   <option value="">Mileages</option>
-                  <option value="10000">Up to 10,000 miles</option>
-                  <option value="50000">Up to 50,000 miles</option>
-                  <option value="100000">Up to 100,000 miles</option>
+                  <option value="10">Up to 10 miles</option>
+                  <option value="20">Up to 20 miles</option>
+                  <option value="30">Up to 30 miles</option>
                </select>
 
                {/*sEaRCH FILTER*/}

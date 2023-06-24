@@ -4,13 +4,12 @@ import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 const OemEdit = () => {
-   const location = useLocation();
    const navigate = useNavigate();
-   const {_id, model, year, listPrice, availableColors, mileage, power, maxSpeed} =
-      location.state;
+   const location = useLocation();
+   const {_id, model, year, listPrice, availableColors, mileage, power, maxSpeed} = location.state;
 
    // const [items, setItems] = useState([""]);
-   const [image, setimage] = useState("");
+   const [image, setimage] = useState(null);
    const [title, settitle] = useState("");
    const [currentPrice, setcurrentPrice] = useState("");
    const [kmsOnOdometer, setkmsOnOdometer] = useState("");
@@ -22,7 +21,8 @@ const OemEdit = () => {
 
    const [description, setDescription] = useState("");
    const [additionalInputs, setAdditionalInputs] = useState([]);
-   const [dataa, setdata] = useState("");
+   const [dataa, setdataa] = useState("");
+
    const handleDescriptionChange = event => {
       setDescription(event.target.value);
    };
@@ -46,51 +46,65 @@ const OemEdit = () => {
    const handleSubmit = async e => {
       e.preventDefault();
 
-      if (
-         image &&
-         title.length &&
-         currentPrice.length &&
-         description.length &&
-         kmsOnOdometer.length &&
-         accidentsReported.length &&
-         previousBuyers.length &&
-         registrationPlace.length
-      ) {
-         const data = new FormData();
-         data.append("oemSpecs", _id);
-         data.append("image", image);
-         data.append("title", title);
-         data.append("currentPrice", currentPrice);
-         data.append("description", description);
-         data.append("kmsOnOdometer", kmsOnOdometer);
-         data.append("accidentsReported", accidentsReported);
-         data.append("previousBuyers", previousBuyers);
-         data.append("registrationPlace", registrationPlace);
-         data.append("majorScratches", majorScratches);
-         data.append("originalPaint", originalPaint);
-         
+      try {
+         if (
+            image &&
+            title.length &&
+            currentPrice.length &&
+            description.length &&
+            kmsOnOdometer.length &&
+            accidentsReported.length &&
+            previousBuyers.length &&
+            registrationPlace.length
+         ) {
+            const data = new FormData();
+            data.append("oemSpecs", _id);
+            data.append("image", image);
+            data.append("title", title);
+            data.append("currentPrice", currentPrice);
+            data.append("description", description);
+            data.append("kmsOnOdometer", kmsOnOdometer);
+            data.append("accidentsReported", accidentsReported);
+            data.append("previousBuyers", previousBuyers);
+            data.append("registrationPlace", registrationPlace);
+            data.append("majorScratches", majorScratches);
+            data.append("originalPaint", originalPaint);
 
-         console.log("form data", data.get("image"));
+            console.log("data ", data.get("oemSpecs"));
 
-         console.log("form dataa", dataa);
-         try {
             var token = Cookies.get("token");
-            // console.log("local", token);
+            console.log("token ", token);
+            // const response = await axios.post(`/marketPlaceInventory/create`, data, {
+            //    headers: {
+            //       Authorization: `Bearer ${token}`
+            //    }
+            // });
 
-            const response = await axios.post(`/marketPlaceInventory/create`, data, {
+            axios({
+               method: "post",
+               url: `/marketPlaceInventory/create`,
+               data: data,
                headers: {
+                  "Content-Type": "multipart/form-data",
                   Authorization: `Bearer ${token}`
                }
-            });
+            })
+               .then(function (response) {
+                  //handle success
+                  console.log(response);
+               })
+               .catch(function (response) {
+                  //handle error
+                  console.log(response);
+               });
 
-            console.log("dataaa", response.data);
             navigate("/MyInventory");
-         } catch (error) {
-            console.error("Oem EDIT error ", error);
+         } else {
+            console.log("fill all fields");
+            setdataa("Fill all fieldds ");
          }
-      } else {
-         console.log("fill all fields");
-         setdata("Fill all fieldds ");
+      } catch (error) {
+         console.log("Oem EDIT error ", error);
       }
    };
 
@@ -109,6 +123,7 @@ const OemEdit = () => {
                         <input
                            className=" border-2 border-neutral-400 ml-6"
                            type="text"
+                           name="description"
                            value={description}
                            onChange={handleDescriptionChange}
                         />
@@ -132,7 +147,7 @@ const OemEdit = () => {
                   </div>
                </div>
 
-               <div class="li" className="flex">
+               <div className="flex">
                   <div className="flex flex-col w-1/3 pr-4">
                      <label className="block mb-2 text-gray-600 pl-10">image </label>
                      <label className="block mb-2 text-gray-600 pl-10">title </label>
@@ -243,6 +258,7 @@ const OemEdit = () => {
                         className=" border border-black shadow bg-gray-200  mb-4  "
                         type="text"
                         value={model}
+                        name="model"
                         readOnly
                      />
 
@@ -250,6 +266,7 @@ const OemEdit = () => {
                         className=" border border-black shadow bg-gray-200   mb-4  "
                         type="text"
                         value={year}
+                        name="year"
                         readOnly
                      />
 
@@ -257,6 +274,7 @@ const OemEdit = () => {
                         className=" border border-black shadow  bg-gray-200  mb-4  "
                         type="text"
                         value={listPrice}
+                        name="listPrice"
                         readOnly
                      />
 
@@ -264,6 +282,7 @@ const OemEdit = () => {
                         className="border border-black shadow  mb-4  bg-gray-200 "
                         type="text"
                         value={availableColors}
+                        name="availableColors"
                         readOnly
                      />
 
@@ -271,6 +290,7 @@ const OemEdit = () => {
                         className=" border border-black shadow  mb-4 bg-gray-200  "
                         type="text"
                         value={mileage}
+                        name="mileage"
                         readOnly
                      />
 
@@ -278,6 +298,7 @@ const OemEdit = () => {
                         className=" border border-black shadow  mb-4 bg-gray-200  "
                         type="text"
                         value={power}
+                        name="power"
                         readOnly
                      />
 
@@ -285,6 +306,7 @@ const OemEdit = () => {
                         className=" border border-black shadow  mb-4 bg-gray-200  "
                         type="text"
                         value={maxSpeed}
+                        name="maxSpeed"
                         readOnly
                      />
                   </div>
@@ -298,6 +320,7 @@ const OemEdit = () => {
                </div>
             </div>
          </form>
+
          <h1 className="text-center text-red-700 text-xl">{dataa}</h1>
       </div>
    );

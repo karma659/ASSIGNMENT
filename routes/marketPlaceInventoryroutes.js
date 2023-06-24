@@ -6,6 +6,7 @@ const {
    deleteCar,
    createCar
 } = require("../controllers/marketcontroller");
+
 const multer = require("multer");
 const path = require("path");
 

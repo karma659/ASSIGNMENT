@@ -21,7 +21,7 @@ const Inventorycard = ({card, onEdit, onDelete}) => {
          console.log("Card delete");
          onDelete(id);
       } catch (error) {
-         console.error("eeeeee", error);
+         console.log("eeeeee", error);
       }
    };
 
@@ -29,7 +29,7 @@ const Inventorycard = ({card, onEdit, onDelete}) => {
       <div className=" ml-40 mr-40 shadow flex mb-10 mt-10 border border-black rounded-md">
          <div className=" mx-10 my-5 w-[40%]  ">
             <div className="  w-50  rounded  overflow-hidden ">
-               <img src={`http://localhost:5000/${card.image}`} class="    " />
+               <img src={`/${card.image}`} />
             </div>
          </div>
 

@@ -15,14 +15,15 @@ const getall = async (req, res) => {
 
 // GET DEALER INVENTORY
 const getDealerInventory = async (req, res) => {
-   const ID = req.body.dealer;
-   console.log(req.body);
+   const ID = req.body.dealer || req.dealer;
+   console.log("body dealer ", req.body, req.dealer);
    console.log("ID:", ID);
    try {
       const car = await MarketplaceInventoryModel.find({dealer: ID})
          .populate("dealer")
          .populate("oemSpecs");
-      res.json(car);
+
+      res.status(200).send(car);
    } catch (err) {
       console.log({msg: "Error Occured", error: err});
    }
@@ -30,16 +31,19 @@ const getDealerInventory = async (req, res) => {
 
 //Create MyCar post From OEM
 const createCar = async (req, res) => {
-   const payload = req.body;
-   console.log("auth", req.dealer);
-   console.log("req body ", req.body);
-   payload.image = req.file.path;
-   payload.dealer= req.dealer;
+   try {
+      const payload = req.body;
+      payload.image = req.file.path;
+      payload.dealer = req.dealer;
+      console.log("all ", payload);
 
-   console.log("payload ", payload, req.dealer);
-   const car = new MarketplaceInventoryModel(payload);
-   await car.save();
-   res.send(car);
+      const car = new MarketplaceInventoryModel(payload);
+      await car.save();
+
+      res.send("car added");
+   } catch (err) {
+      console.log({msg: "Error Occured", error: err});
+   }
 };
 
 //Delete my car post from Inventory

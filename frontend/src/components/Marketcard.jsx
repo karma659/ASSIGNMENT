@@ -21,7 +21,7 @@ const Marketcard = ({card}) => {
             </div> */}
             <div className=" mx-10 w-[40%]  ">
                <div className="  w-50  rounded  overflow-hidden ">
-                  <img src={`http://localhost:5000/${card.image}`} class="    " />
+                  <img src={`/${card.image}`} />
                </div>
             </div>
             <div className="  w-[50%] flex  justify-evenly ">

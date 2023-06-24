@@ -2,16 +2,10 @@ import React from "react";
 
 import Market from "./Market";
 
-
 const Home = () => {
-
-
- 
    return (
       <div>
-                <Market/>
-               
-
+         <Market />
       </div>
    );
 };

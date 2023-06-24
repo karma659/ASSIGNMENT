@@ -7,15 +7,12 @@ import Navbarr from "./Navbarr";
 
 const MyInventory = () => {
    const [cards, setCards] = useState([]);
-
-   useEffect(() => {
-      fetchData();
-   }, []);
-
+   
    const fetchData = async () => {
       try {
          var token = Cookies.get("token");
          console.log("local", token);
+
          const response = await axios.get(`/marketPlaceInventory/dealer`, {
             headers: {
                Authorization: `Bearer ${token}`
@@ -29,6 +26,10 @@ const MyInventory = () => {
          console.error("ERROR MyINventory", error);
       }
    };
+
+   useEffect(() => {
+      fetchData();
+   }, []);
 
    const [selectedProductId, setSelectedProductId] = useState(null);
 
@@ -44,7 +45,7 @@ const MyInventory = () => {
       try {
          setCards(prevCards => prevCards.filter(card => card._id !== id));
       } catch (error) {
-         console.error("Error deleting card:", error);
+         console.log("Error deleting card:", error);
       }
    };
 
@@ -67,7 +68,7 @@ const MyInventory = () => {
                </div>
             ) : (
                <div className="card-grid ">
-                  {cards.map(card => (
+                  {cards?.map(card => (
                      <Inventorycard
                         card={card}
                         onEdit={handleEdit}
