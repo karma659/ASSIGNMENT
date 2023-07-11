@@ -8,7 +8,7 @@ ODM       ->  Mongoose
 To run locally ->
 
 1)  Download
-2)  cd Assignment_1
+2)  cd sellyourcar
 3)  npm run dev      //(to start backend and frontend concurrently)
       or   
 4)  npm run server   //(backend server start on localhost 5000)
